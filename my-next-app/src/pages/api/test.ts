@@ -5,12 +5,5 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.status(200).json({ name: "test test test" });
-  await prisma.bookmark.create({
-    data: {
-      title: "ㅇㅇ",
-      url: "dasadssad",
-      description: "asdasd",
-    },
-  });
+  //
 }
