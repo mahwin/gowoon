@@ -1,7 +1,16 @@
+import "../styles/globals.css"; // 전역 스타일
 import React from "react";
+import { ThemeButton } from "../components/ThemeButton";
 import { AppProps } from "next/app";
-import "../styles/globals.css";
+import { Layout } from "../components/Layout";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <Layout>
+      <ThemeButton />
+      <Component {...pageProps} />;
+    </Layout>
+  );
 }
+
+export default MyApp;

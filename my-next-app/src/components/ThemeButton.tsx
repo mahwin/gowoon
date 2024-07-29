@@ -16,6 +16,9 @@ function getInitialTheme() {
 function setTheme(isDark: boolean) {
   if (isServer()) return;
   localStorage.setItem("isDark", isDark ? "true" : "false");
+  isDark
+    ? document.documentElement.classList.add("dark")
+    : document.documentElement.classList.remove("dark");
 }
 
 export const ThemeButton = () => {
@@ -26,7 +29,7 @@ export const ThemeButton = () => {
 
   return (
     <button
-      className="p-2 w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex justify-center items-center absolute top-8 right-8"
+      className="p-2 w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex justify-center items-center fixed top-12 right-12 z-10"
       onClick={onClickHandler}
     >
       {isDark ? (
