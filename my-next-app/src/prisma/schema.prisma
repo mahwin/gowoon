@@ -13,9 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Bookmark {
   id    Int     @id @default(autoincrement())
-  url  String
-  title  String
+  url  String   @unique
+  title  String 
   description  String
 }
