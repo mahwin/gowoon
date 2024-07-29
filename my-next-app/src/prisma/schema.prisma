@@ -14,8 +14,16 @@ datasource db {
 }
 
 model Bookmark {
-  id    Int     @id @default(autoincrement())
-  url  String   @unique
-  title  String 
-  description  String
+  id            Int       @id @default(autoincrement())
+  url           String    @unique
+  title         String 
+  description   String
+  categoryId    Int       
+  category      Category  @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  bookmark      Bookmark[] @relation
 }
