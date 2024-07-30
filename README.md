@@ -60,17 +60,17 @@
 
 ## 실행 방법
 
-pnpm install;
-pnpm dev;
+pnpm install; <br>
+pnpm dev; <br>
 
-.env에 DATABASE_URL를 로컬 환경에 맞게 설정해주세요.
+.env에 DATABASE_URL를 로컬 환경에 맞게 설정해주세요. <br>
 
-npx prisma migrate dev;
-npx prisma generate;
-npx prisma db push;
+npx prisma migrate dev; <br>
+npx prisma generate; <br>
+npx prisma db push; <br>
 
-GET /api/db/category
-GET /api/db/bookmark => 모든 카테고리의 데이터가 하나씩 늘어납니다.
+GET /api/db/category <br>
+GET /api/db/bookmark => 모든 카테고리의 데이터가 하나씩 늘어납니다. <br>
 
 ### 추가로 구현할 내용
 
