@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { MAX_ITEM_SIZE } from "../../constants/pagenation";
 import { usePageNation } from "../../store";
 import type { BookmarkResponse, Bookmark } from "@/types/bookmark";
+import type { Categories } from "../../constants/categories";
+
 import { BookmarkLi } from "./BookmarkLi";
 import { Pagenation } from "./Pagenation";
 
-async function fetchBookmark<T>(currentPage: number): Promise<T | Error> {
+async function fetchBookmark<T>(
+  currentPage: number,
+  category?: Categories
+): Promise<T | Error> {
   try {
     const res = await fetch(
-      `/api?size=${MAX_ITEM_SIZE}&currentPage=${currentPage}`
+      `/api?size=${MAX_ITEM_SIZE}&currentPage=${currentPage}&category=${category}`
     );
     return res.json() as T;
   } catch (e) {
@@ -16,20 +21,19 @@ async function fetchBookmark<T>(currentPage: number): Promise<T | Error> {
   }
 }
 
-export function BookmarkUl() {
+export function BookmarkUl({ category }: { category?: Categories }) {
   const { currentPage, setLastPage } = usePageNation();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>();
 
   useEffect(() => {
     (async () => {
-      const res = await fetchBookmark<BookmarkResponse>(currentPage);
-      console.log(res);
+      const res = await fetchBookmark<BookmarkResponse>(currentPage, category);
       if (!(res instanceof Error)) {
         setBookmarks(res.bookmarks);
         setLastPage(res.lastPage);
       }
     })();
-  }, [currentPage]);
+  }, [currentPage, category]);
   return (
     <div>
       <ul>
