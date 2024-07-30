@@ -7,12 +7,21 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const { size = 10, currentPage = 1 } = req.query;
+    const { size = 10, currentPage = 1, category } = req.query;
 
     const skip = (Number(currentPage) - 1) * Number(size);
     const take = Number(size);
 
-    const bookmarks = await prisma.bookmark.findMany();
+    const categoryRecord = await prisma.category.findUnique({
+      where: { name: category as string },
+    });
+
+    const bookmarks =
+      categoryRecord !== null
+        ? await prisma.bookmark.findMany({
+            where: { categoryId: categoryRecord.id },
+          })
+        : await prisma.bookmark.findMany();
 
     res.status(200).json({
       bookmarks: sliceArray(bookmarks, skip, skip + take),
