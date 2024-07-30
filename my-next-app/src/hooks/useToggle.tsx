@@ -6,7 +6,9 @@ export function useToggle(initialStateFn: Function, handler: Function = none) {
   const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
-    setToggle(initialStateFn());
+    const initToggle = initialStateFn();
+    setToggle(initToggle);
+    handler(initToggle);
   }, []);
 
   const setter = useCallback(() => {

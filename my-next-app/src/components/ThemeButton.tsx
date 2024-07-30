@@ -4,11 +4,14 @@ import { WiSunrise, WiMoonset } from "react-icons/wi";
 import { useToggle } from "../hooks/useToggle";
 import { isDarkTheme, isServer } from "../utils";
 
+const ICON_OPTIONS = { size: 40, color: "#FFA500" };
+
 // 기존 테마를 확인하고 localstorage에 저장된 테마가 있는지, 없다면 localstorage에 테마를 저장하는 함수
 function getInitialTheme() {
+  console.log("서버 인지 확인");
   if (isServer()) return false;
-
-  if (!localStorage.getItem("isDark")) return isDarkTheme();
+  console.log("서버 아니래");
+  if (localStorage.getItem("isDark") === null) return isDarkTheme();
 
   return localStorage.getItem("isDark") == "true";
 }
@@ -33,9 +36,9 @@ export const ThemeButton = () => {
       onClick={onClickHandler}
     >
       {isDark ? (
-        <WiSunrise size={40} color={"#FFA500"} />
+        <WiSunrise {...ICON_OPTIONS} />
       ) : (
-        <WiMoonset size={40} color={"#FFA500"} />
+        <WiMoonset {...ICON_OPTIONS} />
       )}
     </button>
   );

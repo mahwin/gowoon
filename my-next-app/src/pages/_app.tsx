@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <ThemeButton />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </Layout>
   );
 }

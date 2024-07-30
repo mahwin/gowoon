@@ -5,7 +5,7 @@ type BookmarkLiProps = Bookmark;
 
 export function BookmarkLi({ title, description, url }: BookmarkLiProps) {
   return (
-    <li className="p-2 border-2">
+    <li className="p-2 border-b-2">
       <section>
         <a href="#none">{url}</a>
         <div className="flex gap-4">
