@@ -99,7 +99,7 @@ export function BookmarkForm({
         <div className="w-[300px]">
           <label htmlFor="url">url :</label>
           <input
-            className="w-full bg-gray-700 dark:bg-white"
+            className="w-full  dark:bg-gray-700 bg-white"
             id="url"
             value={url}
             disabled={!canChange}
@@ -109,7 +109,7 @@ export function BookmarkForm({
         <div className="w-full">
           <label htmlFor="title">title :</label>
           <input
-            className="w-full bg-gray-700 dark:bg-white"
+            className="w-full dark:bg-gray-700 bg-white"
             id="title"
             value={title}
             disabled={!canChange}
@@ -123,7 +123,7 @@ export function BookmarkForm({
           onChange={handleSelectChange}
           id="category"
           disabled={!canChange}
-          className="bg-gray-700 dark:bg-white"
+          className="dark:bg-gray-700 bg-white"
         >
           {categories.map((category) => (
             <option key={category} value={category}>
@@ -135,7 +135,7 @@ export function BookmarkForm({
       <div className="h-full ">
         <label htmlFor="description">description :</label>
         <textarea
-          className="w-full h-[300px] bg-gray-700 dark:bg-white"
+          className="w-full h-[300px] dark:bg-gray-700 bg-white"
           id="description"
           value={description}
           disabled={!canChange}

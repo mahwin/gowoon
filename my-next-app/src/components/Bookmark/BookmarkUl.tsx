@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState, useCallback } from "react";
 import { MAX_ITEM_SIZE } from "../../constants/pagenation";
 import { usePageNation } from "../../store";
 import type { BookmarkResponse, Bookmark } from "@/types/bookmark";
 import type { Categories } from "../../constants/categories";
 
+import { getCustomAttributeByElement } from "../../utils";
+
+import { path } from "../../routes/path";
+
 import { BookmarkLi } from "./BookmarkLi";
 import { Pagenation } from "./Pagenation";
+
+import { useRouter } from "next/router";
 
 async function fetchBookmark<T>(
   currentPage: number,
@@ -25,6 +31,25 @@ export function BookmarkUl({ category }: { category?: Categories }) {
   const { currentPage, setLastPage } = usePageNation();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>();
 
+  const router = useRouter();
+
+  const handleClickUl = useCallback((e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const target = e.target as HTMLElement;
+    if (target.tagName !== "svg") return;
+
+    const li = (e.target as Element).closest("li") as HTMLLIElement;
+    const id = getCustomAttributeByElement(li, "id");
+    const action = getCustomAttributeByElement(target, "type");
+    if (id === null || action === null) return;
+
+    if (action === "edit") {
+      router.push(`${path.page.bookmarkEdit}${id}`);
+    } else if (action === "enter") {
+      router.push(`${path.page.bookmark}${id}`);
+    }
+  }, []);
+
   useEffect(() => {
     (async () => {
       const res = await fetchBookmark<BookmarkResponse>(currentPage, category);
@@ -36,7 +61,7 @@ export function BookmarkUl({ category }: { category?: Categories }) {
   }, [currentPage, category]);
   return (
     <div>
-      <ul>
+      <ul onClick={handleClickUl}>
         {bookmarks?.map((bookmark) => (
           <BookmarkLi key={bookmark.id} {...bookmark} />
         ))}
